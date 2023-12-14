@@ -21,7 +21,7 @@ func FormatTransactionResponse(bank models.Bank, customer models.Customer, merch
 		To:            merchant.Name,
 		Amount:        request.Amount,
 		BankName:      bank.BankName,
-		AccountNumber: bank.BankName,
+		AccountNumber: bank.AccountNumber,
 	}
 
 	return transactionResponse

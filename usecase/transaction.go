@@ -6,8 +6,7 @@ import (
 	"golang-test/payload/request"
 )
 
-func (u *usecase) Transaction(input request.TransactionRequest) (models.Bank, models.Customer, models.Merchant, error) {
-	customer, _ := u.repositories.FindCustomerByEmail(input.Email)
+func (u *usecase) Transaction(input request.TransactionRequest) (models.Bank, models.Merchant, error) {
 	bank, _ := u.repositories.FindBankByAccountNumber(input.NumberAccount)
 
 	// currentSaldo := bank.Saldo
@@ -19,6 +18,6 @@ func (u *usecase) Transaction(input request.TransactionRequest) (models.Bank, mo
 	fmt.Println(updatedAccountBank.Saldo)
 	merchant, _ := u.repositories.FindMerchantByAccountBank(input.NumberAccount)
 
-	return updatedAccountBank, customer, merchant, nil
+	return updatedAccountBank, merchant, nil
 
 }

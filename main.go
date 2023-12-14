@@ -33,10 +33,10 @@ func main() {
 
 	router := gin.Default()
 	api := router.Group("/api")
-	api.POST("/customers/register", authMiddleWare(newUseCase), newDelivery.RegisterCustomer)
+	api.POST("/customers/register", newDelivery.RegisterCustomer)
 	api.POST("/merchants/register", newDelivery.RegisterMerchant)
 	api.POST("/auth/login", newDelivery.Login)
-	api.POST("/transaction", newDelivery.Transaction)
+	api.POST("/transaction", authMiddleWare(newUseCase), newDelivery.Transaction)
 
 	router.Run()
 }

@@ -5,6 +5,7 @@ import (
 	"golang-test/payload/request"
 	"golang-test/repository"
 
+	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v5"
 )
 
@@ -15,7 +16,8 @@ type Usecase interface {
 	RegisterCustomer(input request.RegisterCustomer) (models.Customer, error)
 	GetCustomerById(userID int) (models.Customer, error)
 	RegisterMerchant(input request.RegisterMerchant) (models.Merchant, error)
-	Transaction(input request.TransactionRequest) (models.Bank, models.Customer, models.Merchant, error)
+	Transaction(input request.TransactionRequest) (models.Bank, models.Merchant, error)
+	GetCustomerLogin(c *gin.Context) (models.Customer, error)
 }
 
 type usecase struct {
