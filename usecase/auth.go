@@ -4,6 +4,7 @@ import (
 	"errors"
 	"golang-test/models"
 	"golang-test/payload/request"
+	"os"
 	"strings"
 	"time"
 
@@ -12,7 +13,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-var SECRET_KEY = []byte("raswan_sualdi")
+var secretKey = os.Getenv("SECRET_KEY")
 
 func (u *usecase) GenerateToken(userID int) (string, error) {
 	claim := jwt.MapClaims{}
@@ -20,7 +21,7 @@ func (u *usecase) GenerateToken(userID int) (string, error) {
 	claim["iat"] = time.Now()
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claim)
 
-	signedToken, err := token.SignedString(SECRET_KEY)
+	signedToken, err := token.SignedString(secretKey)
 	if err != nil {
 		return signedToken, err
 	}
@@ -36,7 +37,7 @@ func (u *usecase) ValidateToken(Encodedtoken string) (*jwt.Token, error) {
 			return nil, errors.New("invalid Token")
 		}
 
-		return []byte(SECRET_KEY), nil
+		return []byte(secretKey), nil
 	})
 
 	if err != nil {
