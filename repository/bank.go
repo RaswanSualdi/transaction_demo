@@ -23,13 +23,9 @@ func (r *repositories) FindBankByAccountNumber(accountBank string) (models.Bank,
 }
 
 func (r *repositories) UpdateAccountBank(bank models.Bank, amount int64) (models.Bank, error) {
-	// r.db.First(&bank)
-
 	account := bank.AccountNumber
 	currentSaldo := bank.Saldo
 	currentSaldo += amount
-	// fmt.Println(currentSaldo)
-	// err := r.db.Save(&models.Bank{AccountNumber: account, Saldo: currentSaldo}).Error
 	err := r.db.Model(&models.Bank{}).Where("account_number = ?", account).Update("saldo", currentSaldo).Error
 	if err != nil {
 		return bank, err
